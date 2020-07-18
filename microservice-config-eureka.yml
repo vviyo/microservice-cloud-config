@@ -1,0 +1,43 @@
+spring:
+  profiles:
+    active: dev #激活开发环境
+---
+server:
+  port: 6001
+spring:
+  profiles: dev  #开发环境
+  applications:
+    name: microservice-config-eureka
+
+eureka:
+  instance:
+    hostname: eureka6001.com
+  client:
+    register-with-eureka: false    #服务注册，表示不将自己注册到eureka里面
+    fetch-registry: false          #服务发现，false表示自己不从eureka里获取注册信息
+    serviceUrl:                    #eureka客户端和eureka服务端的交互地址，集群配置对方地址，单机版配置自己
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      #集群版
+      defaultZone: http://eureka6002.com:6002/eureka/
+  server:
+    enable-self-preservation: false #禁用自我保护机制，开发阶段建议关闭，生产里要打开
+---
+server:
+  port: 6001
+spring:
+  profiles: prod  #开发环境
+  applications:
+    name: microservice-config-eureka
+
+eureka:
+  instance:
+    hostname: eureka6001.com
+  client:
+    register-with-eureka: false    #服务注册，表示不将自己注册到eureka里面
+    fetch-registry: false          #服务发现，false表示自己不从eureka里获取注册信息
+    serviceUrl:                    #eureka客户端和eureka服务端的交互地址，集群配置对方地址，单机版配置自己
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      #集群版
+      defaultZone: http://eureka6002.com:6002/eureka/
+  server:
+    enable-self-preservation: true #禁用自我保护机制，开发阶段建议关闭，生产里要打开
